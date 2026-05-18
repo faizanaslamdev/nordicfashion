@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { BrandLogo } from './brand-logo';
 
 export function Footer() {
   return (
@@ -9,10 +10,7 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-4">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 font-bold text-lg text-primary mb-4">
-              <span className="text-2xl">◆</span>
-              <span>Nordic Price</span>
-            </div>
+            <BrandLogo className="mb-4 text-lg" showText />
             <p className="text-sm text-muted-foreground">
               Smart shopping assistant for Nordic stores
             </p>
