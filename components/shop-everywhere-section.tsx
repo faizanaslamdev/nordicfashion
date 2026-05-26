@@ -1,14 +1,8 @@
 import Image from 'next/image';
-import { Star } from 'lucide-react';
+import { PromoTestimonialRotator } from '@/components/promo-testimonial-rotator';
 import { BRAND } from '@/lib/constants/brand';
 
 const PROMO_IMAGE = '/promo/shop-everywhere.jpg';
-
-const TESTIMONIAL = {
-  quote:
-    'Finally, a tool that helps me shop smarter without the noise — real price insights, not ads. Whether it\'s everyday fashion or a splurge, I know I\'m buying at the right time with data on what actually holds its value.',
-  author: 'Ari L.',
-};
 
 export function ShopEverywhereSection() {
   return (
@@ -48,28 +42,9 @@ export function ShopEverywhereSection() {
           />
           <div className="promo-panel__image-fade" aria-hidden />
 
-          <figure className="absolute inset-x-0 bottom-0 z-10 px-8 pb-8 pt-16 md:px-10 md:pb-10 lg:px-12 lg:pb-12">
-            <blockquote className="max-w-[420px] text-sm font-light leading-relaxed text-foreground md:text-[15px] md:leading-6">
-              &ldquo;{TESTIMONIAL.quote}&rdquo;
-            </blockquote>
-            <figcaption className="mt-4">
-              <p className="text-sm font-semibold text-foreground">
-                {TESTIMONIAL.author}
-              </p>
-              <div
-                className="mt-1.5 flex gap-0.5"
-                aria-label="5 out of 5 stars"
-              >
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="size-3.5 fill-muted-foreground text-muted-foreground"
-                    aria-hidden
-                  />
-                ))}
-              </div>
-            </figcaption>
-          </figure>
+          <div className="absolute inset-x-0 bottom-0 z-10">
+            <PromoTestimonialRotator />
+          </div>
         </div>
       </div>
     </section>

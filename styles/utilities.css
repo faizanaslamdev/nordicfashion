@@ -162,6 +162,19 @@
     @apply pointer-events-none absolute inset-x-0 bottom-0 h-[55%];
   }
 
+  .promo-panel__testimonial-card {
+    background: var(--promo-testimonial-scrim);
+    @apply relative w-full rounded-none px-8 pb-6 pt-20 md:px-10 md:pb-7 md:pt-24 lg:px-12;
+  }
+
+  .promo-panel__testimonial-track {
+    @apply relative w-full;
+  }
+
+  .promo-panel__testimonial-slide {
+    @apply flex w-full flex-col;
+  }
+
   .text-deal {
     color: var(--deal);
   }
