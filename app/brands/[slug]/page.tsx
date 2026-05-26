@@ -5,7 +5,7 @@ import { ProductGrid } from '@/components/product-grid';
 import {
   getAllStores,
   getBrandSlug,
-  getProductsByStoreId,
+  resolveBrandProducts,
   resolveStoreFromRouteParam,
 } from '@/lib/services';
 
@@ -26,7 +26,7 @@ export default async function BrandPage({ params }: BrandPageProps) {
     redirect(`/brands/${canonicalSlug}`);
   }
 
-  const products = getProductsByStoreId(brand.id);
+  const { products, usedFallback } = resolveBrandProducts(brand.id);
 
   return (
     <PageLayout>
@@ -36,7 +36,9 @@ export default async function BrandPage({ params }: BrandPageProps) {
         <div className="mb-10">
           <h1 className="type-heading">{brand.name}</h1>
           <p className="type-subheading mt-2">
-            {products.length} products available at {brand.name}
+            {usedFallback
+              ? `Curated picks to explore at ${brand.name}`
+              : `${products.length} products available at ${brand.name}`}
           </p>
         </div>
 

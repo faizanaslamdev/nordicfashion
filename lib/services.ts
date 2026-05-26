@@ -10,6 +10,8 @@ export {
   getProductsByCategory,
   getSimilarProducts,
   getProductsByStoreId,
+  resolveBrandProducts,
+  type BrandListingResult,
 } from '@/lib/domain/products/catalog';
 
 export {

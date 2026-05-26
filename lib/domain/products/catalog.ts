@@ -1,6 +1,13 @@
 import { HOME_FEATURED_PRODUCT_IDS } from '@/lib/constants/featured';
-import { products } from '@/lib/data/dummy-data';
+import { products, stores } from '@/lib/data/dummy-data';
 import type { Product } from '@/lib/types';
+
+const BRAND_FALLBACK_LIMIT = 12;
+
+export interface BrandListingResult {
+  products: Product[];
+  usedFallback: boolean;
+}
 
 export function getAllProducts(): Product[] {
   return products;
@@ -27,10 +34,45 @@ export function getProductsByCategory(category: string): Product[] {
   return products.filter((p) => p.category === category);
 }
 
-export function getProductsByStoreId(storeId: string): Product[] {
+function getDirectStoreProducts(storeId: string): Product[] {
   return products.filter(
     (p) => p.prices[storeId] != null && p.inStock[storeId] !== false,
   );
+}
+
+/** Curated slice of the catalog when a brand has no dedicated listings (demo). */
+function getBrandFallbackProducts(storeId: string, limit = BRAND_FALLBACK_LIMIT): Product[] {
+  const storeIndex = Math.max(
+    0,
+    stores.findIndex((store) => store.id === storeId),
+  );
+  const count = products.length;
+  if (count === 0) return [];
+
+  const start = (storeIndex * 3) % count;
+  const picked: Product[] = [];
+
+  for (let i = 0; i < limit; i++) {
+    picked.push(products[(start + i) % count]);
+  }
+
+  return picked;
+}
+
+export function resolveBrandProducts(storeId: string): BrandListingResult {
+  const direct = getDirectStoreProducts(storeId);
+  if (direct.length > 0) {
+    return { products: direct, usedFallback: false };
+  }
+
+  return {
+    products: getBrandFallbackProducts(storeId),
+    usedFallback: true,
+  };
+}
+
+export function getProductsByStoreId(storeId: string): Product[] {
+  return resolveBrandProducts(storeId).products;
 }
 
 export function getSimilarProducts(productId: string, limit = 4): Product[] {
