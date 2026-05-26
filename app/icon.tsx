@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/og';
-import { CLEA_MARK_PATH, CLEA_MARK_VIEWBOX } from '@/lib/constants/icon-mark';
 
 export const size = { width: 32, height: 32 };
 export const contentType = 'image/png';
@@ -7,31 +6,27 @@ export const contentType = 'image/png';
 export default function Icon() {
   return new ImageResponse(
     (
-      <svg
-        width="32"
-        height="32"
-        viewBox={CLEA_MARK_VIEWBOX}
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(145deg, #1a1a1a 0%, #000000 100%)',
+          borderRadius: 8,
+        }}
       >
-        <defs>
-          <linearGradient id="bg" x1="4" y1="4" x2="28" y2="28">
-            <stop color="#1f1f1f" />
-            <stop offset="1" color="#0a0a0a" />
-          </linearGradient>
-        </defs>
-        <rect width="32" height="32" rx="8" fill="url(#bg)" />
-        <g transform="translate(16 16.15) skewX(-7) translate(-16 -16.15)">
-          <path
-            d={CLEA_MARK_PATH}
-            fill="none"
-            stroke="#fafafa"
-            strokeWidth={2.15}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-      </svg>
+        <div
+          style={{
+            width: 14,
+            height: 14,
+            background: '#fafafa',
+            transform: 'rotate(45deg)',
+          }}
+        />
+      </div>
     ),
-    { ...size },
+    { ...size }
   );
 }
