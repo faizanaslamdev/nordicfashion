@@ -1,5 +1,6 @@
 'use client';
 
+import { BRAND } from '@/lib/constants/brand';
 import { Product } from '@/lib/types';
 import { getPriceAIInsights, getMatchTypeLabel } from '@/lib/services';
 import { Card } from '@/components/ui/card';
@@ -15,10 +16,10 @@ export function PriceAIInsightsPanel({ product }: PriceAIInsightsProps) {
 
   const verdictClass =
     ai.verdict === 'good_deal'
-      ? 'border-accent/40 bg-accent/5 text-accent'
+      ? 'border-foreground/25 bg-muted text-foreground'
       : ai.verdict === 'above_average'
-        ? 'border-destructive/30 bg-destructive/5 text-destructive'
-        : 'border-primary/30 bg-primary/5 text-primary';
+        ? 'border-border bg-muted/50 text-muted-foreground'
+        : 'border-border bg-muted/30 text-foreground';
 
   const RecommendationIcon =
     ai.recommendation === 'buy_now' ? CheckCircle2 : Clock;
@@ -31,9 +32,9 @@ export function PriceAIInsightsPanel({ product }: PriceAIInsightsProps) {
             <Sparkles className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <h3 className="font-semibold text-foreground">Price AI</h3>
+            <h3 className="font-semibold text-foreground">{BRAND.name} insights</h3>
             <p className="text-sm text-muted-foreground">
-              Insights from collected price history
+              Price history and recommendations from {BRAND.domain}
             </p>
           </div>
         </div>

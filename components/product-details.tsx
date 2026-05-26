@@ -48,9 +48,9 @@ export function ProductDetails({
 
           <div className="grid grid-cols-2 gap-4">
             <button type="button" onClick={scrollToComparison} className="text-left">
-              <Card className="p-4 text-center transition-colors hover:border-emerald-500/30 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20">
+              <Card className="deal-highlight-card p-4 text-center">
                 <LowestPriceBadge variant="label" className="mx-auto" />
-                <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
+                <p className="text-xl font-bold text-deal">
                   {formatPrice(product.lowestPrice)}
                 </p>
                 {best && (
@@ -129,11 +129,11 @@ export function ProductDetails({
               <div key={store.id} className="flex items-center justify-between">
                 <span className="text-foreground">{store.name}</span>
                 {product.inStock[store.id] ? (
-                  <Badge variant="outline" className="border-green-200 bg-green-50 text-green-700">
+                  <Badge variant="outline" className="border-border bg-muted text-foreground">
                     In Stock
                   </Badge>
                 ) : (
-                  <Badge variant="secondary" className="border-red-200 bg-red-50 text-red-700">
+                  <Badge variant="secondary" className="border-border bg-muted text-muted-foreground">
                     Out of Stock
                   </Badge>
                 )}

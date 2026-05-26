@@ -1,24 +1,40 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Roboto_Mono, Playfair_Display, DM_Sans } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { BRAND } from '@/lib/constants/brand';
 import './globals.css';
-import { FloatingShoppingAssistant } from '@/components/floating-shopping-assistant';
+import { Providers } from './providers';
 
-const _geist = Geist({ subsets: ['latin'] });
-const _geistMono = Geist_Mono({ subsets: ['latin'] });
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-roboto-mono',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+});
 
 export const metadata: Metadata = {
+  metadataBase: new URL(BRAND.siteUrl),
   title: {
-    default: 'Nordic Price — Smart Shopping Assistant',
-    template: '%s | Nordic Price',
+    default: BRAND.title,
+    template: BRAND.titleTemplate,
   },
-  description:
-    'Compare fashion and beauty prices across Nordic stores. Find the best deals with real-time price tracking and Price AI.',
-  applicationName: 'Nordic Price',
+  description: BRAND.description,
+  applicationName: BRAND.name,
   icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
     apple: [{ url: '/apple-icon', sizes: '180x180' }],
   },
 };
@@ -29,7 +45,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#fafafa' },
-    { media: '(prefers-color-scheme: dark)', color: '#171717' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1a1a' },
   ],
 };
 
@@ -39,10 +55,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-background">
-      <body className="font-sans antialiased bg-background text-foreground">
-        {children}
-        <FloatingShoppingAssistant />
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${playfair.variable} ${robotoMono.variable} bg-background`}
+      suppressHydrationWarning
+    >
+      <body
+        className="font-sans antialiased bg-background text-foreground"
+        suppressHydrationWarning
+      >
+        <Providers>{children}</Providers>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

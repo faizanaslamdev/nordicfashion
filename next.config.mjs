@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -12,6 +9,23 @@ const nextConfig = {
       },
     ],
   },
-}
+  async redirects() {
+    return [
+      { source: '/cart', destination: '/brands', permanent: false },
+      { source: '/trending', destination: '/brands', permanent: false },
+      { source: '/products', destination: '/brands', permanent: false },
+      {
+        source: '/product/:id',
+        destination: '/brands',
+        permanent: false,
+      },
+      {
+        source: '/brands/:slug/products/:productId',
+        destination: '/brands/:slug',
+        permanent: false,
+      },
+    ];
+  },
+};
 
-export default nextConfig
+export default nextConfig;
